@@ -1,4 +1,4 @@
-package hackerrank;
+package hackerrank.airwatch;
 
 import java.util.Scanner;
 /**

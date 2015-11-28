@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hackerrank;
+package hackerrank.airwatch;
 
 import java.util.ArrayList;
 import java.util.Queue;

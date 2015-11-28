@@ -1,4 +1,4 @@
-package snapdeal;
+package hackerrank.snapdeal;
 
 import java.util.Scanner;
 

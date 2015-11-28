@@ -1,5 +1,7 @@
 package bloomberg;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Problem3 {
@@ -11,48 +13,28 @@ public class Problem3 {
 		int a = in.nextInt();
 		int b = in.nextInt();
 		
-		int liftarr[][] = new int[e][2];
-		floor arr[] = new floor[e];
+		int arr[][] = new int[e][2];
+		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+		HashSet<Integer> set = new HashSet<Integer>();
+		
+		HashSet<Integer> visited = new HashSet<Integer>();
+
+		ArrayList<Integer> temp = new ArrayList<Integer>();
 
 		for(int i=0;i<e;i++) {
-			arr[i].end=in.nextInt();
-			arr[i].start=in.nextInt();
+			int jump = in.nextInt();
+			int base = in.nextInt();
+			for(int j=base;j<=f;j=j+jump) {
+				temp.add(j);
+			}
+			list.add(temp);
+			if(temp.contains(b)) 
+				set.addAll(temp);
+			temp.clear();
 		}
-		int start = a;
+		
 		while(true) {
-			start = contains(liftarr,start,b);
-			if(start == -1) {
-				System.out.println(0);
-				return ;
-			}
-			if(start >= b) {
-				System.out.println(1);
-				return;
-			}
 		}
-	}
-	
-	public static int contains(int liftarr[][],int a,int b) {
-		for(int i=0;i<liftarr.length;i++) {
-			if(a >= liftarr[i][1] && a < liftarr[i][0])
-				return liftarr[i][0];
-		}
-		return -1;
-	}
-
-}
-
-class floor {
-	int start;
-	int end;
-	floor(int a, int b) {
-		start =a;
-		end=b;
-	}
-	boolean contains(int val) {
-		if(val >= start && val < end) {
-			return true;
-		} else 
-			return false;
+		 
 	}
 }
