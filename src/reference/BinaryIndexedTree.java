@@ -1,4 +1,4 @@
-package geeksforgeeks;
+package reference;
 
 public class BinaryIndexedTree {
 	

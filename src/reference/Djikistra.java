@@ -1,4 +1,4 @@
-package graph;
+package reference;
 
 import java.util.HashMap;
 import java.util.PriorityQueue;
