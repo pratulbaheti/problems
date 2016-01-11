@@ -5,7 +5,7 @@ package com.dp;
  * Longest Increasing Subsequence
  *
  */
-public class LIS {
+public class LongestIncreasingSubsequence {
 
 	public static void main(String[] args) {
 		int arr[] = {4,6,1,3,8,4,6};

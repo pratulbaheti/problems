@@ -62,13 +62,13 @@ public class ValidateTree {
 		}
 		return true;
 	}
-}
-
-class Node {
-	int value;
-	boolean visited;
-	ArrayList<Node> nbor = new ArrayList<Node>();
-	public Node(int i) {
-		value=i;
+	
+	static class Node {
+		int value;
+		boolean visited;
+		ArrayList<Node> nbor = new ArrayList<Node>();
+		public Node(int i) {
+			value=i;
+		}
 	}
 }

@@ -1,14 +1,14 @@
-package com.dp;
+package reference;
 
 import java.util.Scanner;
 
-public class Tree {
+public class BinaryTree {
 	
 	public Node root = new Node();
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		Tree bst = new Tree();
+		BinaryTree bst = new BinaryTree();
 		int value=0;
 		Scanner in = new Scanner(System.in);
 		bst.println("Insert root node");
