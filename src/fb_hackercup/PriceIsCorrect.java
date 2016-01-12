@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class PriceIsCorrect {
 	
-	static int[] bit = new int[100000];
+	static int[] bit = new int[100001];
 	static int[] arr;
 	
 	public static void main(String[] args) {
@@ -16,37 +16,43 @@ public class PriceIsCorrect {
 			arr = new int[n];
 			for(int i=0;i<n;i++) {
 				arr[i] = in.nextInt();
-				update(i,arr[i]);
+				update(i+1,arr[i]);
 			}
 			
 			// Do binary search for x => read(x) - read(i) < p
 			// Using this x, possible combinations will be x*(x+1)/2
-			for(int i=0;i<n;i++) {
-				int first  = 0;
-			    int last   = n;
-			    int middle = (first + last)/2;
-			 
-			    while( first <= last )
-			    {
-			      if ( < x )
-			        first = middle + 1;    
-			      else if ( array[middle] == x ) 
-			      {
-			        System.out.println(x + " found at location " + (middle + 1) + ".");
-			        break;
-			      }
-			      else
-			         last = middle - 1;
-			 
-			      middle = (first + last)/2;
-			   }
+			long count=0;
+			
+			for (int i = 1; i < n; i++) {
+				
+				int start=i,mid=0,end=bit.length-1;
+				while(start <= end) {
+					mid = start + (end - start)/2;
+					int temp = read(mid) - read(i-1);
+					if(temp == p)
+						start = mid;
+					else if(temp > p)
+						end = mid-1;
+					else
+						start = mid+1;
+				}
+				
+				int diff = start - i;
+				count+=sumToN(diff);
 			}
+			System.out.println("Case #"+(t+1)+":"+count);
 		}
 		in.close();
 
 	}
 	
+	public static long sumToN(int n) {
+		double sum=n*(n+1);
+		return (long)sum/2;
+	}
+	
 	public static int read(int i) {
+		if(i<=0) return 0;
 		int resultSum = 0;
 		while(i>0) {
 			resultSum+=bit[i];
