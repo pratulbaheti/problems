@@ -1,0 +1,2624 @@
+
+
+
+
+
+----------
+-std=c++11
+.vimrc : 
+filetype plugin indent on
+""set cindent
+
+""set tabstop=4     " The width of a TAB is set to 4.
+                    " Still it is a \t. It is just that
+                    " Vim will interpret it to be having
+                    " a width of 4.
+set shiftwidth=4    " Indents will have a width of 4.
+set softtabstop=4   " Sets the number of columns for a TAB.
+set expandtab       " Expand TABs to spaces.
+
+
+
+
+
+----------
+// Template --
+#include<bits/stdc++.h>
+using namespace std;
+
+#define LL long long
+#define F first
+#define S second
+#define MP make_pair
+#define PB push_back
+#define SZ(a) (int)(a.size())
+#define BS(vec,val) (int)(lower_bound(vec.begin(),vec.end(),val) - vec.begin())
+#define bitcount __builtin_popcountll
+#define LET(it,container) __typeof(container.begin()) it(container.begin())
+#define ITER(it,container) for(__typeof(container.begin()) it=container.begin();it!=container.end();it++)
+
+#define PREC cout << setprecision(10) << fixed;
+#define FI ios_base::sync_with_stdio(0); cin.tie(NULL);
+#define DB(x) cerr << #x << ": " << x << " ";
+//#define TRACE
+#ifdef TRACE
+#define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1){
+    cerr << name << " : " << arg1 << std::endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args){
+    const char* comma = strchr(names + 1, ',');cerr.write(names, comma - names) << " : " << arg1<<" | ";__f(comma+1, args...);
+}
+#else
+#define trace(...)
+#endif
+
+const double PI = acos(-1.0);
+const int MOD = 1e9 + 7;
+const int INF = 1e9 + 9;
+const int MX = 1e5 + 5;
+
+int main()
+{
+
+    return 0;
+}
+
+
+
+
+
+----------
+// Ordered set --
+// http://codeforces.com/blog/entry/11080
+
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+
+typedef tree<
+int, //data_type
+null_type,
+less<int>, // cmp_func
+rb_tree_tag,
+tree_order_statistics_node_update> ordered_set;
+
+ordered_set st;
+
+st.find_by_order(k)	returns an iterator to the k-th largest element (counting from zero), element at kth index.
+st.order_of_key(val)	returns the number of items in a set that are strictly smaller than our val.
+
+
+
+
+
+----------
+// All permutations --
+int inp[] = {1,2,3};
+sort(inp,inp+3);
+
+cout << inp[0] << inp[1] << inp[2] << endl;
+while(next_permutation(inp,inp+3))
+	cout << inp[0] << inp[1] << inp[2] << endl;
+
+
+
+
+
+----------
+1) string to char array
+	string tmp = "cat";
+	char buf[MX];
+	strcpy(buf, tmp.c_str());
+2) char to string 
+	char arr[ ] = "This is a test";
+	string str(arr);
+3) number to string
+	LL n
+	char buf[100];
+    	sprintf ( buf, "%lld", n );
+4) string to number
+	string a = "25";
+	int n = atoi(a.c_str());
+
+
+
+
+
+----------
+// 2d array neighbours --
+int ddx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+int ddy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+int dx[] = {-1, 0, 0, 1};
+int dy[] = {0, -1, 1, 0};
+
+
+
+
+
+----------
+// Palindrome Check for a number --
+bool ispalin(LL x)
+{
+	LL temp = x, rem, reverse = 0;
+	while(temp != 0)
+	{
+		rem = temp%10;
+	     	reverse = reverse*10+rem;
+     		temp /= 10;
+	}
+	if(reverse == x)
+		return true;
+	else
+		return false;
+}
+
+
+
+
+
+----------
+// XOR of all numbers in range (a,b) --
+// a,b 1e18
+// http://stackoverflow.com/questions/10670379/find-xor-of-all-numbers-in-a-given-range
+
+// function f : returns xor of range (0,x)
+long long f(long long a)
+{
+     long long res[] = {a,1,a+1,0};
+     return res[a%4];
+}
+
+long long getXor(long long a, long long b)
+{
+     return f(b)^f(a-1);
+}
+
+
+
+
+
+----------
+// Convert Base --
+vector<int> convert_base(LL n,int b)
+{
+        vector<int> v;
+        while(n > 0)
+        {
+                v.PB(n%b);
+                n = n/b;
+        }
+	/*
+        int l = 10;
+        for(int i=v.size();i<=l;i++)
+                v.pb(0);
+	*/
+        reverse(v.begin(),v.end());
+        return v;
+}
+vector<int> inb;
+inb = convert_base(n,b);
+
+
+
+
+
+----------
+// generating binary/powerset --
+for(int i=0;i<(1<<n);i++)
+{
+	for(int j=0;j<n;j++)
+	{
+		if(i & (1<<j))
+		// note: if(i & (1<<j) == 1) is a wrong condition
+			//set_bit	
+	}
+}
+
+
+
+
+
+----------
+// GCD --
+// __gcd(a,b);
+int gcd(int a , int b)
+{
+    	if(b == 0) return a;
+    	return gcd(b , a%b);
+}
+
+
+
+
+
+----------
+Note:
+	gcd(A,B) = gcd(A−B,B) 
+	Using this property, we can substract any multiple of B from A as long as the multiple is smaller than A.
+Ex: https://www.hackerrank.com/contests/hourrank-3/challenges/divisor-exploration-5
+
+
+
+
+
+----------
+Q.) Find pairs (a,b) from the array such that a%b=K.
+// http://functionspace.com/topic/2163/Find-pairs--a-b--from-the-array-such-that-a-b-K
+//
+	a%b = k
+	a = xb + k
+	b = (a - k)/x,	 we immediately see that b must divide a-k.Now,
+
+	Find all divisors of a-k. 
+	// let one particular divisor be b...check if it present in the array or not.
+
+
+
+
+
+----------
+// GCD question --
+// 1 ⩽ n ⩽ 10^5
+// 1 ⩽ ai ⩽10^5
+// Question) 
+	1) ∑1⩽i<j⩽n F(gcd(ai,aj)), pairwise gcd
+	2) GCD of all subsets of an array
+// Ex:
+// https://www.hackerrank.com/contests/infinitum13/challenges/pairwise-gcd
+// https://www.codechef.com/ACMAMR15/problems/AMR15B/
+
+1)
+int a[MX];
+int freq[MX];
+LL dp[MX];
+
+int main() 
+{
+	int n;
+	scanf("%d",&n);
+	for(int i=0;i<n;i++) 
+	{
+		scanf("%lld",&a[i]);
+		freq[a[i]]++;
+	}
+		
+	// dp[g] denotes number of pairs with gcd g
+	// let's look at multiples of g in array
+	// let count = freq[g] + freq[g*2] + freq[g*3] + ...
+	// dp[g] = count C 2  // modulo and inverse logic goes here
+	// but we also calculated cases where gcd could be g*2, g*3 ... so we need to subtract
+ 
+	LL co;
+	for(int i=MX-1;i>=1;i--) 
+	{
+		co = 0;
+		for(int j=i;j<MX;j+=i) co += freq[j];
+		dp[i] = (co * (co - 1))%MOD;
+		dp[i] = (dp[i] * inv(2))%MOD;
+		for(int j=i*2;j<MX;j+=i) dp[i] = (dp[i] - dp[j] + MOD)%MOD;
+	}
+
+	// rest of code logic
+
+	return 0;
+}
+
+2)
+int a[MX];
+int freq[MX];
+LL dp[MX];
+
+int main() 
+{
+	int n;
+	scanf("%d",&n);
+	for(int i=0;i<n;i++) 
+	{
+		scanf("%lld",&a[i]);
+		freq[a[i]]++;
+	}
+
+	// dp[g] denotes number of subsets with gcd g
+
+	LL co;
+	for(int i=MX-1;i>=1;i--) 
+	{
+		co = 0;
+		for(int j=i;j<MX;j+=i) co += freq[j];
+		dp[g]+=pow(2,co); // modulo logic goes here
+		dp[g]%=MOD;
+		for(int j=i*2;j<MX;j+=i) dp[i] = (dp[i] - dp[j] + MOD)%MOD;		
+	}
+
+	// rest of code logic
+
+	return 0;
+}
+
+
+
+
+
+----------
+// Divisors property --
+
+If N = p1^q1 * p2^q2 *...pn^qn, then
+
+1) Number of factors/divisors
+	d(N) = (q1+1)(q2+1)...(qn+1) divisors
+
+2) Sum of all of its factors
+	= (p1^(q1+1) - 1)/(p1 - 1) * (p2^(q2+1) - 1)/(p2 - 1) * ...
+
+3) Product of all of its factors
+	= N^(d(N)/2)
+   // This can be easily proved by pairing each divisor d1 with d2 = A/d1. 
+
+
+
+
+
+----------
+// Divisors --
+// O(sqrt(n))
+void divisors(int x)
+{
+	int till = sqrt(x);
+	int d1,d2;
+        for(int i=1;i<=till;i++)
+        {
+        	if(x%i == 0)
+        	{
+                	d1 = i;
+                	d2 = x/i;
+                	// d1 divisor
+                	if(d1 != d2)
+				// d2 divisor
+            	}
+       	}
+}
+
+
+
+
+
+----------
+// Sieve primes --
+// O(nlogn)
+bool ispr[10000007];
+vector <int> prime;
+
+void sieve()
+{
+        memset(ispr,true,sizeof(ispr));
+        ispr[0] = ispr[1] = false;
+        int mxn = 10000007;
+        int till = sqrt(mxn)+1;
+	//(1)for(int i=2;i<mxn;i++)
+        for(int i=2;i<till;i++)
+        {
+                if(ispr[i])
+                {
+			//for(int j=i*2;j<mxn;j+=i)
+			//(1)for(LL j=i*i;j<mxn;j+=i)
+                        for(int j=i*i;j<mxn;j+=i)
+                                ispr[j] = false;
+                }
+        }
+        for(int i=2;i<mxn;i++)
+        {
+                if(ispr[i]) 
+                        prime.PB(i);
+        }
+}
+
+
+
+
+
+----------
+// segmented sieve --
+
+// all prime numbers in range (m,n) given n-m <= 1e6 and sqrt(n) < 1e6;
+bool aux[10000007];
+vector<LL> segmented_sieve(LL m,LL n)
+{
+	// range m to n, given n-m < 1e6 and sqrt(n) < 1e6
+	// i from 0 to n-m 
+	// A[i] denotes i + m;
+
+        memset(aux,true,sizeof(aux));
+
+	if(m < 2) m = 2;
+
+	LL till = sqrt(n)+1;
+	for(int i=0;i<prime.size();i++)
+	{
+		if(prime[i] >= till) break;
+		
+		LL start;
+		if(prime[i] >= m) start = prime[i]*2;
+		else start = (prime[i] - m % prime[i])%prime[i] + m;
+
+		for(LL j = start; j <= n; j += prime[i])
+		{
+			int id = j - m;
+			aux[id] = false;
+		}
+	}
+	
+	vector<LL> res;
+	for(int i=0;i<=n-m;i++)
+	{
+		LL val = i + m;
+		if(aux[i] == true)
+			res.PB(val);
+	}
+	return res;
+}
+sieve();
+vector<LL> res = segmented_sieve(m,n);
+
+
+// Example: Segmented Euler Totient function value for all numbers in range m to n
+int phi[MX];
+int arr[MX];
+void segmented_sieve(LL m,LL n)
+{
+	if(m < 2) m = 2;
+
+	for(int i=0;i<=n-m;i++) arr[i] = i+m;
+	for(int i=0;i<=n-m;i++) phi[i] = 1;
+
+	for(int i=0;i<prime.size();i++)
+	{
+		LL start;
+		if(prime[i] >= m) start = prime[i]*2;
+		else start = (prime[i] - m % prime[i])%prime[i] + m;
+
+		for(LL j = start; j <= n; j += prime[i])
+		{
+			int id = j - m;
+
+			LL cnt = 0;
+			while(arr[id]%prime[i] == 0)
+			{
+				cnt++;
+				arr[id] /= prime[i];
+			}
+			phi[id] = phi[id] * (prime[i]-1) * expo(prime[i],cnt-1);
+		}
+	}
+	
+	// note:
+	// handle case like, lets say n = 10^12, and n = 10^3 * some_prime(10^9).
+	// then that prime wont be covered unless we write the below code.
+	for(int i=0;i<=n-m;i++)
+	{
+		LL val = i + m;
+		if(arr[i] > 1)
+			phi[i] = phi[i] * (arr[i]-1);	
+	}
+
+	for(int i=0;i<=n-m;i++)
+		cout << phi[i] << " ";
+	cout << endl;
+}
+sieve();
+segmented_sieve(m,n);
+
+
+
+
+
+----------
+// Prime checking --
+// Naive O(root(N))
+bool isPrime(LL n) 
+{
+	for (LL i = 2; i * i <= n; i++) 
+	{
+        	if (n % i == 0)	return false;
+        }
+    	return true;
+}
+
+// Miller Rabin test
+long long modulo(long long  a,long long b,long long c)
+{
+	// long long is taken to avoid overflow of intermediate results
+	long long x=1,y=a; 
+	while(b > 0)
+	{
+		if(b%2 == 1)
+		{
+			x=(x*y)%c;
+		}
+		y = (y*y)%c; // squaring the base
+		b /= 2;
+	}
+	return x%c;
+}
+
+long long mulmod(long long a,long long b,long long c)
+{
+	long long x = 0,y=a%c;
+	while(b > 0)
+	{
+		if(b%2 == 1)
+		{
+			x = (x+y)%c;
+		}
+		y = (y*2)%c;
+		b /= 2;
+	}
+	return x%c;
+}
+
+bool Miller(long long p,int iteration = 20)
+{
+	if(p<2)
+	{
+		return false;
+	}
+	if(p!=2 && p%2==0)
+	{
+		return false;
+	}
+	long long s=p-1;
+	while(s%2==0)
+	{
+		s/=2;
+	}
+	for(int i=0;i<iteration;i++)
+	{
+		long long a=rand()%(p-1)+1,temp=s;
+		long long mod=modulo(a,temp,p);
+		while(temp!=p-1 && mod!=1 && mod!=p-1)
+		{
+			mod=mulmod(mod,mod,p);
+			temp *= 2;
+		}
+		if(mod!=p-1 && temp%2==0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+
+
+
+
+----------
+// prime factorization --
+// O(root(N))
+vector< pair<int,int> > factorize(LL n)
+{
+        vector< pair<int,int> > res;
+        if(n == 1)
+        {
+                res.PB(MP(1,1));
+                return res;
+        }
+        for(LL i = 2; i * i <= n; i++)
+        {
+                if(n % i == 0)
+                {
+                        int cnt = 0;
+                        while(n % i == 0)
+                        {
+                                n /= i;
+                                cnt++;
+                        }
+                        res.PB(MP(i,cnt));
+                }
+        }
+        if (n != 1)
+        {
+                res.PB(MP(n,1));
+        }
+        return res;
+}
+
+// O(logn) approach with precomputation
+// minPrime[N] = minimal prime number that divides our N. 
+// Conditions: you can implement this if you're allowed to create an array of integers with size N.
+const int mxn = 1e7;
+int minPrime[mxn];
+void aux_func()
+{
+	for (int i = 2; i * i <= mxn; i++) 
+	{
+		//if i is prime
+		if (minPrime[i] == 0) 
+		{ 
+			for (int j = i * i; j <= mxn; j += i)
+			{
+				// not yet found
+				if(minPrime[j] == 0)
+					minPrime[j] = i;
+			}
+		}
+	}
+	for (int i = 2; i <= mxn; ++i) 
+	{
+		if (minPrime[i] == 0) 
+			minPrime[i] = i;
+	}
+}
+
+vector<pair<int,int> > factorize(int n) 
+{
+	vector< pair<int,int> > res;
+	if(n == 1)
+	{
+		res.PB(MP(1,1));
+		return res;
+	}
+	while (n != 1) 
+	{
+		int cnt = 0;
+		int div = minPrime[n];
+		while(n % div == 0)
+		{
+			n /= div;
+			cnt++;
+		}
+		res.PB(MP(div,cnt));
+	}
+	return res;
+}
+
+
+
+
+
+----------
+Q) Given c, how many solutions are there for a^b=c?
+// https://www.hackerrank.com/contests/hourrank-3/challenges/divisor-exploration-4
+//
+	Let us factorize c. 
+	c=p1^a1 × p2^a2 ×... pk^ak. Then, let g=gcd(a1,a2,a3...ak). 
+	Then, in a^b=c, b can only be one of the divisor of g.
+
+
+
+
+
+----------
+// Power a^x --
+LL expo(LL a , LL x)
+{
+        if(x == 0) return 1;
+        LL res = expo(a,x/2);
+        res = (res * res);
+        if(x % 2 == 0)
+                return res;
+        else
+                return res * a;
+}
+
+
+
+
+
+----------
+// Multiplication --
+// (10^18 * 10 ^18)%mod, mod of range 10^18; normal multiplication can result in overflow.
+// a * b = multiply(a, b / 2) * 2
+// Iterative:
+LL multiply(LL a, LL b)
+{
+        LL res = 0;
+        while(b > 0)
+        {
+                int lastdigit = b & 1;
+                if(lastdigit > 0)
+                        res = (res + a)%MOD;
+                a = (a + a)%MOD;
+                b = b >> 1;
+        }
+        return res;
+}
+// Recursive:
+LL multiply(LL a , LL b)
+{
+    	if(b == 0) return 0;
+    	LL res = multiply(a , b >> 1);
+    	res = (res + res)%MOD;
+    	if(b & 1) res = (res + a)%MOD;
+    	return res;
+}
+
+
+
+
+
+----------
+// Modular exponentiation --
+// Iterative:
+// note: multiplication func is used.
+LL mod_expo(LL a , LL x)
+{
+        LL ret = 1;
+        while(x > 0)
+        {
+                int lastdigit = x & 1;
+                if(lastdigit > 0)
+                        ret = multiply(ret, a)%MOD;
+                a = multiply(a, a)%MOD;
+                x = x >> 1;
+        }
+        return ret%MOD;
+}
+// Recursive:
+LL mod_expo(LL a , LL x)
+{
+        if(x == 0) return 1;
+        LL res = mod_expo(a,x/2);
+        res = (res * res)%MOD;
+        if(x % 2 == 0)
+                return res;
+        else
+                return (res * (a%MOD))%MOD;
+}
+
+
+
+
+
+----------
+// Fermats theorem and Eulers theorem -- 
+// fermats theorem :	a^(m−1) ≡ 1(modm)	,if m is a prime number.
+// eulers theorem :	a^ϕ(m)  ≡ 1(mod m)	,where a and m are relatively prime.
+
+// Now Q.) calculate a^x % m, if x is large lets say x = b^c;
+// Use eulers theorem.
+// 	r = x % ϕ(m)     i.e x = k.ϕ(m) + r  	i.e  r = b^c % ϕ(m), use modular exponention for it.
+// 	a^x % m = a^r % m
+
+
+
+
+
+----------
+// Euler totient function --
+
+// phi(n) = counts the number of positive integers less than or equal to n which are relatively prime to n
+// phi(p) = p-1 ; if p is a prime
+// phi(p^n) = (p-1) * p^(n-1) = (1 - 1/p) * p^n ; still if p is a prime..
+// phi(a*b) = phi(a) * phi(b) whenever gcd(a,b) = 1
+// if N = p1^e1 * p2^e2 *..... pn^en then phi(N) = phi(p1^e1) * phi(p2^e2) * ... phi(pn^en)
+
+
+// http://codeforces.com/blog/entry/10119
+// Linear sieve algo from http://e-maxx.ru/algo/prime_sieve_linear with this feature
+
+const int N = 10000000;
+int lp[N + 1];
+int phi[N + 1];
+vector<int> pr;
+void calc_sieve()
+{
+	phi[1] = 1;
+	for (int i = 2; i <= N; ++i)
+	{
+		if (lp[i] == 0)
+		{
+			lp[i] = i;
+			phi[i] = i - 1;
+			pr.push_back(i);
+		}
+		else
+		{
+			//Calculating phi
+			if (lp[i] == lp[i / lp[i]])
+				phi[i] = phi[i / lp[i]] * lp[i];
+			else
+				phi[i] = phi[i / lp[i]] * (lp[i] - 1);
+		}
+		for (int j = 0; j < (int)pr.size() && pr[j] <= lp[i] && i * pr[j] <= N; ++j)
+			lp[i * pr[j]] = pr[j];
+	}
+}
+calc_sieve();
+
+
+// O(root(n))
+long long int phi(long long int n) 
+{ 
+	long long int result = n; 
+	for(long long int i=2;i*i <= n;i++) 
+	{ 
+		if (n % i == 0) 
+			result -= result / i; 
+		while (n % i == 0) 
+			n /= i; 
+	} 
+	if (n > 1)
+		result -= result / n;
+ 
+	return result; 
+}
+
+
+
+
+
+----------
+// Inverse Modulo --
+// x = a^-1 (mod m)
+// a^-1 = x (mod m)
+// 1    = ax (mod m)
+
+1) if m is prime: O(log m)
+// Fermats theorem: a^(m-1) = 1 (mod m)
+// therefore        a^(m-2) = a^-1 (mod m)
+LL mod_inverse(LL a, LL m) 
+{
+    return mod_expo(a,m-2);
+}
+
+2) if m is not prime: 
+// Euler's theorem : if a is coprime to m, that is, gcd(a, m) = 1, then 
+//                 : a^(phi(m)) = 1 (mod m)
+// therefore         a^(phi(m)-1) = a^-1 (mod m)
+// note: if m is prime then phi(m) = m - 1;
+LL mod_inverse(LL a, LL m)
+{
+	return mod_expo(a,phi(m)-1);
+}
+
+3) O(n)
+//calculate the inverse of first n numbers.
+LL inv_arr[100005];
+void mod_inverse(int n,int m)
+{
+	inv_arr[1] = 1;
+	for(int i=2;i<=n;i++)
+		inv_arr[i] = (-(m/i) * inv_arr[m%i])%m + m;
+}
+
+
+
+
+
+----------
+// Binomial Coefficients nCr -- 
+// nCr = n-1Cr + n-1Cr-1
+LL ncr[1003][1003];
+void comb()
+{
+        for(int i=0;i<1003;i++)
+        {
+                ncr[i][0] = 1;
+                for(int j=1;j<=i;j++)
+                        ncr[i][j] = (ncr[i-1][j] + ncr[i-1][j-1])%MOD;
+        }
+}
+
+
+
+
+
+----------
+// Integeral Solution for linear equation --
+1)	x1 + x2 + ... + xr = n ; xi >= 0
+	ans = (n + r - 1) C (r -1)
+
+2)      x1 + x2 + ... + xm = n ; xi >= a
+	then solve, yi = xi - a therefore yi >= 0
+	y1 + y2 + ... + ym = n - m*a ; yi >= 0
+ 	
+3) 	x1 + x2 + ... + xm <= n ; xi > 0
+	then solve
+	x1 + x2 + ... + xm + xm+1 = n
+
+	// No of ways of setting three values(la,lb,lc; 0 <= li <= l) such that la + lb + lc <= l
+	// then solve la + lb + lc + unusedl = l
+
+
+
+
+
+----------
+// Triangle Inequality -- 
+
+Given any triangle, if a, b, and c are the lengths of the sides, the following is always true:
+	a + b > c
+	a + c > b
+	b + c > a
+
+Given triples a,b,c. Suppose a is maximal side then triples wont form a triangle if a >= b + c.
+Now, Number of ways such that triples wont form a triangle:
+	0 <= a,b,c <= l
+	Select one side as maximum. lets it be a. Do same for b and c.
+	For a:
+	Iterate over each possible a i.e i=(0,l):
+		find number of ways such that b + c <= i   val = (i + 3 - 1) C (3 -1)
+
+
+
+
+
+----------
+// Geometric Progression --
+// a·k^0, a·^k1, ..., a·k^i, ...
+// 3 elements - a/k, a , a*k
+// note : 'a' should be divisible by k, if taking elements of array which are integers
+
+// Arithmetic Progression --
+// a-d,a,a+d or 2b = a + c
+
+
+
+
+
+----------
+// 3d prefix sum --
+// Inclusion Exclusion
+// https://www.hackerrank.com/contests/codeagon2015/challenges/gordons-beverage/editorial
+
+
+
+
+
+----------
+// Dearrangement --
+// if n distinct objects are arranged in row, then the number of ways in which they can be derranged
+// such that none of them occupies its original places
+	D(n) =  n! * { 1 - 1/1! + 1/2! - 1/3! + ... + (-1)^n * 1/n! }
+
+
+
+
+
+----------
+// Integer Partition --
+// http://www.ces.clemson.edu/~jimlb/Teaching/Math573/Math573partitions1.pdf
+// p(k,n) - integer partition of n with smallest summand k, i.e all summand >= k
+// p(k,n) = p(k+1,n) + p(k,n-k)
+// 1. partition where smallest summand is k
+// 2. partition where smallest summand is greater than k
+LL dp[1003][1003];
+LL solve(int k,int n)
+{
+	LL &ret = dp[k][n];
+	if(ret != -1) return ret;
+	if(k > n) return ret = 0;
+	if(k == n) return ret = 1;
+	return ret = solve(k+1,n) + solve(k,n-k);
+}
+memset(dp,-1,sizeof(dp));
+solve(k,n); k > 0;
+
+// p(k,n) - integer partition of n with largest summand k, i.e all summand <= k
+LL dp[1003][1003];
+LL solve(int k,int n)
+{
+        if(n < 0) return 0;
+        LL &ret = dp[k][n];
+        if(ret != -1) return ret;
+        if(k == 0) return ret = 0;
+        if(n == 0) return ret = 1;
+        return ret = solve(k-1,n) + solve(k,n-k);
+}
+memset(dp,-1,sizeof(dp));
+
+
+
+
+
+----------
+// Matrix exponentiation --
+// int size = 2;
+void mat_ident(LL a[2][2])
+{
+	for (int i = 0; i < size; i++)
+        	for (int j = 0; j < size; j++)
+            		a[i][j] = (i == j);
+}
+
+void mat_mul(LL a[2][2], LL b[2][2])
+{
+	LL res[size][size];
+	for (int i = 0; i < size; i++)
+        	for (int j = 0; j < size; j++)
+			res[i][j] = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+        	for (int j = 0; j < size; j++)
+		{
+            		for (int k = 0; k < size; k++)
+            		{
+                		res[i][j] += (a[i][k] * b[k][j])%MOD;
+			}
+		}
+        }
+
+	for (int i = 0; i < size; i++)
+        	for (int j = 0; j < size; j++)
+			a[i][j] = res[i][j];
+}
+
+void mat_expo(LL a[2][2], LL x, LL res[2][2])
+{
+	// res = a^x
+	// res = Identity_matrix
+	mat_ident(res);
+	
+	while(x > 0)
+	{
+		if(x & 1 == 1)
+			mat_mul(res,a); // res = res * a
+		mat_mul(a,a); // a = a * a
+		x = x/2;
+	}
+} 
+
+
+
+
+
+----------
+// Polynomial Hashing --
+
+//1)
+// H(in) = in[0] + in[1]*b + in[2]*b^2 + ... + in[n]*b^n
+// choose prime number b, roughly equal to the number of characters in the input alphabet.
+// small letters b = 31, small + capitalized letters b = 53
+
+const int M1 = 1000000007;
+const int M2 = 1000000021;
+
+char in[100005];
+int len;
+
+set < pair<int, int> > hashes;
+
+int get(int mod, int base)
+{
+        LL p = 1, h = 0;
+        //for(int i = len-1; i >= 0; i--)
+	for(int i = 0; i < len; i++)
+        {
+                h += p*(in[i]-'A'+1)%mod;
+                p = (p*base)%mod;
+        }
+        return h;
+}
+
+pair<int, int> p = MP(get(M1, B), get(M2, B));
+//if (hashes.count(p) != 0) collision
+hashes.insert(p);
+
+//2)
+// F[i] = [ a1*B^(i-1) + a2*B^(i-2) ... ai*B^0 ] % MOD
+
+const int MX = 1e5 + 5;
+LL base = 29;
+LL M1 = 1e9 + 21;
+LL M2 = 1e9 + 33;
+
+char s[MX];
+int n;
+LL p1[MX], p2[MX];
+LL f1[MX], b1[MX], f2[MX], b2[MX];
+
+void poly_powers()
+{
+	p1[0] = p2[0] = 1;
+	FOR(i, 1, MX) 
+	{
+		p1[i] = (p1[i-1] * base)%M1;
+		p2[i] = (p2[i-1] * base)%M2;
+	}
+}
+
+void all_hash()
+{
+	f1[0] = f2[0] = s[0]-'a'+1;
+	FOR(i, 1, n)
+	{
+		f1[i] = ((f1[i-1]*base)%M1 + (s[i]-'a'+1))%M1;
+		f2[i] = ((f2[i-1]*base)%M2 + (s[i]-'a'+1))%M2;
+	}
+
+	b1[n-1] = b2[n-1] = s[n-1]-'a'+1;
+	for(int i=n-2;i>=0;i--)
+	{
+		b1[i] = ((b1[i+1]*base)%M1 + (s[i]-'a'+1))%M1;
+		b2[i] = ((b2[i+1]*base)%M2 + (s[i]-'a'+1))%M2;
+	}
+}
+
+LL sub_hash(int st, int en, int ty)
+{
+	if(st > en) return 0;
+	pair <LL, LL > ret;
+	if(st == 0)
+	{
+		ret.F = f1[en];
+		ret.S = f2[en];
+	}
+	else 
+	{
+		ret.F = (f1[en] - (f1[st-1]*p1[en-st+1])%M1 + M1)%M1;
+		ret.S = (f2[en] - (f2[st-1]*p2[en-st+1])%M2 + M2)%M2;
+	}
+	return ty == 0 ? ret.F : ret.S;
+}
+
+LL sub_rhash(int st, int en, int ty)
+{
+	if(st > en) return 0;
+	pair <LL, LL > ret;
+	if(en == n-1) 
+	{
+		ret.F = b1[st];
+		ret.S = b2[st];
+	}
+	else 
+	{
+		ret.F = (b1[st] - (b1[en+1]*p1[en-st+1])%M1 + M1)%M1;
+		ret.S = (b2[st] - (b2[en+1]*p2[en-st+1])%M2 + M2)%M2;
+	}
+	return ty == 0 ? ret.F : ret.S;
+}
+
+poly_powers();
+all_hash();
+n = strlen(s);
+sub_hash(i, j, ty);	//[i,j] 0 - indexed 	ty = 0 / 1 (M1, M2)
+
+
+
+
+
+----------
+// Binary Search --
+// topcoder tutorial
+int binary_search(int val)
+{
+	//--++
+        //first positive
+        int ans = -1;
+        int low = 0,high = n-1,mid;
+        while(low <= high)
+        {
+                mid = low + (high-low)/2;
+                // exact cond --0++ if f(mid) == val then ans = mid return ans;
+                if(f(mid)==true)
+                {
+                        ans = mid;
+                        high = mid - 1;
+                }
+                else
+                        low = mid + 1;
+        }
+        // if ---- then ans = -1
+	
+	return ans;
+}
+
+
+
+
+
+----------
+// Ternary Search --
+// http://codeforces.com/blog/entry/3560
+// Strictly increasing function first, then reaches a maximum (at one point or the whole segment), then strictly decreasing.
+
+double l = , r = , EPS = ;
+//while (r - l > EPS)
+for(int it=0; it<iterations; it++)
+{
+        double m1,m2
+        m1 = l + (r - l) / 3,
+        m2 = r - (r - l) / 3;
+        if ( f(m1) < f(m2))
+                l = m1;
+        else
+                r = m2;
+}
+
+
+
+
+
+----------
+// Trie --
+// note1 : N strings & maxlen = L then MAX_NODES = n*L
+// note2 : substrings of L lenght string then MAX_NODES = L*L ( 1-n, 2-n... bcoz 1-n would also include all other substrings starting with 1) 
+int trie[MAX_NUMBER_OF_NODES][MAX_ASCII_CODE]; //initially all numbers/nodes in trie are -1
+int next = 1; 
+void build(string s)
+{
+	int v = 0; // starting with root node
+	for(int i=0;i<s.size();i++)
+	{
+		if(trie[v][s[i]-'a'] == -1)
+			v = trie[v][s[i]-'a'] = next++;
+		else
+			v = trie[v][s[i]-'a'];
+	}
+}
+memset(trie,-1,sizeof(trie));
+
+// ex: https://www.hackerearth.com/submission/2875581/
+
+
+
+
+
+----------
+// DSU
+// Union Find Data Structure --
+// https://www.hackerearth.com/notes/disjoint-set-union-union-find/
+
+// Note: index 1, for index 0 just change initialize func - loop from 0 to N
+// modified initialize function.
+// rank/size
+void initialize(int Arr[], int size[], int N)
+{
+	for(int i=1;i<=N;i++)
+    	{
+		Arr[i] = i;
+		size[i] = 1;
+	}
+}
+
+// modified root function. 
+// path compression
+int root(int Arr[], int i)
+{
+    	while(Arr[i] != i)
+    	{
+        	Arr[i] = Arr[Arr[i]]; 
+		i = Arr[i]; 
+    	}
+	return i;
+}
+
+//returns true,if A and B are connected, else it will return false. 
+bool find(int Arr[], int A, int B)
+{
+    	if( root(Arr,A) == root(Arr,B) )       
+    		return true;
+    	else
+    		return false;
+}
+
+//
+void weighted_union(int Arr[], int size[], int A, int B)
+{
+	int root_A = root(Arr,A);
+  	int root_B = root(Arr,B);
+    	if(size[root_A] < size[root_B])
+    	{
+		Arr[root_A] = Arr[root_B];
+		size[root_B] += size[root_A];
+	}
+    	else
+    	{
+		Arr[root_B] = Arr[root_A];
+		size[root_A] += size[root_B];
+	}	
+}
+//
+void weighted_union(int Arr[], int size[], int A, int B)
+{
+	int root_A = root(Arr,A);
+  	int root_B = root(Arr,B);
+
+	if(size[root_A] > size[root_B])
+        {
+		//swap(root_A,root_B);
+                int tmp = root_A;
+                root_A = root_B;
+                root_B = tmp;
+        }
+
+	Arr[root_A] = Arr[root_B];
+	size[root_B] += size[root_A];
+}
+
+// Ex:
+- https://www.codechef.com/LTIME31/problems/ABROADS
+- https://discuss.codechef.com/questions/77895/abroads-editorial
+
+
+
+
+
+----------
+// DFS --
+// Lets say for vertex v start time and end time is - (st,en) 
+	now consider subtree rooted under vertex v
+	then start time and end time of all the vertices under that subtree will lie bw this range (st,en), of vertex v.
+// Here euler path only stores info about start time, about vertices.
+
+int val[100005]; // value at each node
+int ans[100005]; // summation of val at vertex[v] + all values in its subtree, if graph is a tree check?
+
+int vtime = 0;
+int start[100005];
+int end[100005];
+int euler[100005];
+int level[100005];
+int vis[100005];
+
+void dfs(int node,int ht)
+{	
+	vtime++;
+	euler[vtime] = node;
+	start[node] = vtime;
+	level[node] = ht;
+	vis[node] = 1;
+	//ans[node] = val[node]
+	for(int i=0;i<tree[node].size();i++)
+	{
+		int u = tree[node][i];
+		if(vis[u] != 1)
+		{
+			//ans[node] += ans[u];
+			dfs(u,ht+1);
+		}
+	}
+	//end[node] = vtime++;
+	//euler[vtime] = node;
+	end[node] = vtime;
+}
+// 0th node, level/ht = 1 i.e root node at level 1
+dfs(0,1);
+
+//
+void dfs(int node,int par)
+{
+	vtime++;
+	euler[vtime] = node;
+	start[node]=vtime;
+	for(int i=0;i<tree[node].size;i++)
+	{
+		int u = tree[node][i];
+		if(u != par)
+		{
+			level[u]=level[node]+1;
+			dfs(u,node);
+		}
+	}
+	end[node]=vtime;
+}
+level[0]=1;
+dfs(0,0);
+
+
+
+
+
+----------
+// DFS trick --
+//i 	= 	1	2	3	4	5	6	...n   
+//A[i]	=	3	1  	4...				    ;	1 <= A[i] <= n
+//C[i]
+//A[i] denotes... node i points to some other node...and the relation of edge is defined by C[i];
+
+//Note: Strcture of Graph: 
+	N components like structure...(if directed weekly connected) 
+	each component has cycle and outward tree.
+//Construct Graph and Reverse Graph
+//Find cycle node in each component using dfs and then start dfs on reverse graph from that cycle node in order to cover each point in that component...  
+
+// EX: 
+https://www.hackerrank.com/contests/zenhacks/challenges/knight-or-knave 
+https://www.hackerrank.com/contests/zenhacks/challenges/knight-or-knave/submissions/code/4272840
+
+
+
+
+
+----------
+// Dijkstra's --
+// O(E + VlogV)
+// Note :
+1) Finding if edge(u,w) belongs to any shortest path 
+	let's find edges that do not belong to any shortest paths from s to t. Let's find two shortest path arrays d1 and d2 with any shortest-path-finding algorithm. First array stores shortest path length from s, and the second — from t. Edge (u, v) then will be on at least one shortest path from s to t if and only if d1[u] + w(u, v) + d2[v] == d1[t].
+2) Finding if edge(u,w) belongs in all shortest path
+	the edge will be used in all shortest path for sure only if all the shortest paths from s to t pass through this edge, cnt_s[i] denotes the number of ways of reaching i from s and cnt_t[i] denotes number of ways of reaching i from t, therefore 
+	 if( cnt_s[t] == cnt_s[u] * cnt_t[v] ) then edge (u,v) belongs to each shortest path.
+3) An edge exists in all shortest paths iff. it is a bridge in the shortest path graph
+// http://codeforces.com/contest/567/submission/12408647
+
+int n,m;
+vector<int> graph[100005];
+vector<int> weight[100005];
+int d[100005];
+
+struct cmp
+{
+	bool operator() (const pair<int,int> &a, const pair<int,int> &b)
+	{
+		return a.first > b.first;
+	}
+};
+
+priority_queue < pair<int,int>, vector < pair<int,int> >, cmp > pq;
+//priority_queue < pair<int,int>, vector < pair<int,int> >, greater < pair<int,int> > > pq;
+
+int dijkstra(int fro,int to)
+{
+	for(int i=0;i<=n;i++)
+		d[i] = INF;
+
+	int vis[100005];
+	memset(vis,0,sizeof(vis));
+
+	d[fro] = 0;
+	pq.push(MP(0,fro));
+	while(!pq.empty())
+	{
+		int u,v,w;
+		u = pq.top().second;
+		pq.pop();
+
+		if(vis[u] == 1)
+			continue;
+
+		vis[u] = 1;
+		for(int i=0;i<graph[u].size();i++)
+		{
+			v = graph[u][i];
+			w = weight[u][i];
+			if(vis[v] != 1)
+			{
+				if(d[u] + w < d[v])
+				{
+					d[v] = d[u] + w;
+					pq.push(MP(d[v],v));
+				}
+			}
+		} 
+	}
+	return d[to];
+}
+cin >> n >> m;
+int a,b,c;
+for(int i=0;i<m;i++)
+{
+	cin >> a >> b >> c;
+	graph[a].PB(b);
+	weight[a].PB(c);
+}
+
+
+
+
+
+---------
+// Tarjann's SCC --
+
+int num[], low[], state[];
+int cnt;
+vector<int> s;
+vector<vector<int> >adj;
+void scc(int u) {low[u] = num[u] = cnt++;
+	s.push_back(u);
+	state[u] = 1;
+	int m = adj[u].size();
+	for (int i = 0; i < m; i++) {
+		int v = adj[u][i];
+		if (num[v] == UNVISITED) {
+			scc(v);
+		}
+		if (state[v] == 1) {
+			low[u] = min(low[u], low[v]);
+		}
+	}
+	if (low[u] == num[u]) { // root of a new scc
+		printf("scc ->");
+		while (true) {
+			int v = s.back();
+			s.pop_back();
+			state[v] = 0;
+			printf(" %d", v);
+			if (u == v) {
+				break;
+			}
+		}
+		printf("\n");
+	}
+}
+
+
+
+
+
+-----------
+// Segment tree --
+
+1) Point update
+
+int n,inp[MX];
+int tree[3*MX];
+
+int combine_data(int p1,int p2)
+{
+	return max(p1,p2);
+}
+
+void build(int node,int st,int en)
+{
+	if(st==en) // leaf node
+	{
+		tree[node] = inp[st];
+		return;
+	}
+	int mid = (st+en)/2;
+	build(2*node,st,mid);
+	build(2*node+1,mid+1,en);
+	tree[node] = combine_data(tree[2*node],tree[2*node+1]);
+}
+void update(int node,int st,int en,int index,int newval)
+{
+	if(st==en)
+	{
+		tree[node] += newval;
+		return;
+	}
+	int mid = (st+en)/2;
+	if(index<=mid)
+		update(2*node,st,mid,index,newval);
+	else
+		update(2*node+1,mid+1,en,index,newval);
+	tree[node] = combine_data(tree[2*node],tree[2*node+1]);
+}
+int query(int node,int st,int en,int i,int j)    
+{
+	if(st >= i && en <= j)//in range   
+		return tree[node];
+
+	int mid = (st+en)/2;
+	if(j<=mid)
+		return query(2*node,st,mid,i,j);
+	else if(i>mid)
+		return query(2*node+1,mid+1,en,i,j);
+
+	int p1 = query(2*node,st,mid,i,j);
+	int p2 = query(2*node+1,mid+1,en,i,j);
+
+	return combine_data(p1,p2);
+}
+
+
+
+
+
+-----------
+// Segment tree tricks --
+
+// If size of array is 10^9 and total number of queries is 10^5 then
+// offline solution for defining leaf ranges
+// Intially you take all queries and put both L,R 's in array and sort the array
+// suppose sorted (l,r)-array is 2 8 10 15
+// then u define leaf ranges as 2, 3-7, 8, 9, 10, 11-14, 15
+// index                        1   2   3  4   5    6     7
+// u build segment tree on this array.
+// in struct node u keep from,to variable to denote its range.
+// then u start answering queries as per the input
+// Ex: https://www.hackerrank.com/contests/worldcup/challenges/two-arrays-1 sol: twoarrays.cpp
+
+//
+
+
+
+
+
+----------
+// 2D segment tree --
+// http://e-maxx.ru/algo/segment_tree
+// sum of submatrix with (x1,y1) as top left corner and (x2,y2) as bottom right corner
+int n,m;
+int a[3003][3003];
+
+int t[9003][9003];
+
+void build_y (int vx, int lx, int rx, int vy, int ly, int ry) {
+	if (ly == ry)
+		if (lx == rx)
+			t[vx][vy] = a[lx][ly];
+		else
+			t[vx][vy] = t[vx*2][vy] + t[vx*2+1][vy];
+	else {
+		int my = (ly + ry) / 2;
+		build_y (vx, lx, rx, vy*2, ly, my);
+		build_y (vx, lx, rx, vy*2+1, my+1, ry);
+		t[vx][vy] = t[vx][vy*2] + t[vx][vy*2+1];
+	}
+}
+
+void build_x (int vx, int lx, int rx) {
+	if (lx != rx) {
+		int mx = (lx + rx) / 2;
+		build_x (vx*2, lx, mx);
+		build_x (vx*2+1, mx+1, rx);
+	}
+	build_y (vx, lx, rx, 1, 0, m-1);
+}
+
+void update_y (int vx, int lx, int rx, int vy, int ly, int ry, int x, int y, int new_val) {
+	if (ly == ry) {
+		if (lx == rx)
+			t[vx][vy] = new_val;
+		else
+			t[vx][vy] = t[vx*2][vy] + t[vx*2+1][vy];
+	}
+	else {
+		int my = (ly + ry) / 2;
+		if (y <= my)
+			update_y (vx, lx, rx, vy*2, ly, my, x, y, new_val);
+		else
+			update_y (vx, lx, rx, vy*2+1, my+1, ry, x, y, new_val);
+		t[vx][vy] = t[vx][vy*2] + t[vx][vy*2+1];
+	}
+}
+
+void update_x (int vx, int lx, int rx, int x, int y, int new_val) {
+	if (lx != rx) {
+		int mx = (lx + rx) / 2;
+		if (x <= mx)
+			update_x (vx*2, lx, mx, x, y, new_val);
+		else
+			update_x (vx*2+1, mx+1, rx, x, y, new_val);
+	}
+	update_y (vx, lx, rx, 1, 0, m-1, x, y, new_val);
+}
+
+int sum_y (int vx, int vy, int tly, int try_, int ly, int ry) {
+	if (ly > ry)
+		return 0;
+	if (ly == tly && try_ == ry)
+		return t[vx][vy];
+	int tmy = (tly + try_) / 2;
+	return sum_y (vx, vy*2, tly, tmy, ly, min(ry,tmy))
+		+ sum_y (vx, vy*2+1, tmy+1, try_, max(ly,tmy+1), ry);
+}
+
+int sum_x (int vx, int tlx, int trx, int lx, int rx, int ly, int ry) {
+	if (lx > rx)
+		return 0;
+	if (lx == tlx && trx == rx)
+		return sum_y (vx, 1, 0, m-1, ly, ry);
+	int tmx = (tlx + trx) / 2;
+	return sum_x (vx*2, tlx, tmx, lx, min(rx,tmx), ly, ry)
+		+ sum_x (vx*2+1, tmx+1, trx, max(lx,tmx+1), rx, ly, ry);
+}
+
+int main()
+{
+	cin >> n >> m;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+			cin >> a[i][j];
+	}
+
+	build_x(1,0,n-1);
+
+	int q;
+	cin >> q;
+	while(q--)
+	{
+		int ty;
+		cin >> ty;
+		
+		if(ty == 1) // query
+		{
+			int x1,y1,x2,y2;
+			cin >> x1 >> y1 >> x2 >> y2;
+	
+			cout << sum_x(1,0,n-1,x1,x2,y1,y2) << endl;
+		}
+		else if(ty == 2) // update
+		{
+			int x,y,val;
+			cin >> x >> y >> val;
+			// a[x][y] = val;
+
+			update_x (1, 0, n-1, x, y, val);
+		}
+	}
+
+	return 0;
+}
+
+
+
+
+
+----------
+// MO's algorithm --
+// O(N * Sqrt(N) * add/delete)
+
+// Q.)	query (i, j), return number of distinct elements in the int (i,j) 
+	ai <= 1e6 
+// therefore use count else can use map
+
+int n,a[MX];
+int m;
+
+int cnt[MX], answer = 0;
+
+#define BLOCK 555 // ~sqrt(n)
+struct node 
+{
+	int L, R, id;
+}Q[MX];
+int ans[MX];
+
+bool cmp(node x, node y) {
+	if(x.L/BLOCK != y.L/BLOCK) {
+		// different blocks, so sort by block.
+		return x.L/BLOCK < y.L/BLOCK;
+	}
+	// same block, so sort by R value
+	return x.R < y.R;
+}
+
+void add(int position) {
+	cnt[a[position]]++;
+	if(cnt[a[position]] == 1) {
+		answer++;
+	}
+}
+
+void rem(int position) {
+	cnt[a[position]]--;
+	if(cnt[a[position]] == 0) {
+		answer--;
+	}
+}
+
+int main() 
+{
+	scanf("%d", &n);
+	for(int i=0; i<n; i++) scanf("%d", &a[i]);
+
+	scanf("%d", &m);
+	int l,r;
+	for(int i=0; i<m; i++) 
+	{
+		scanf("%d%d", &l, &r);
+		l--;r--;
+		Q[i].L = l;
+		Q[i].R = r;
+		Q[i].id = i;
+	}
+	sort(Q, Q + m, cmp);
+
+	int prevl = 0,prevr = 0;
+	cnt[a[0]]++;
+	answer++;
+	for(int i=0;i<m;i++)
+	{
+		int id = Q[i].id;
+		int l = Q[i].L;
+		int r = Q[i].R;
+		while(prevl < l)
+			rem(prevl++);
+		while(prevl > l)
+			add(--prevl);
+		while(prevr < r)
+			add(++prevr);	
+		while(prevr > r)
+			rem(prevr--);
+	
+		ans[id] = answer;
+	}
+
+	for(int i=0; i<m; i++)
+		printf("%d\n", ans[i]);
+
+	return 0;
+}
+
+
+
+
+
+----------
+// RMQ using sparse table --
+// https://sites.google.com/site/indy256/algo/sparse_table_rmq
+// O(nlogn),O(1)
+// returns the index of minimum element
+
+int n;
+int a[MX];
+
+#define MXLOGN 25
+int logTable[MX];
+int rmq[MXLOGN][MX];
+void rmq_sparse_table()
+{
+	for(int i = 2; i <= n; i++)
+      		logTable[i] = logTable[i >> 1] + 1;
+	
+	for(int i = 0; i < n; i++)
+      		rmq[0][i] = i;
+	
+	for(int k = 1; (1 << k) < n; k++) 
+	{
+      		for (int i = 0; i + (1 << k) <= n; i++) 
+		{
+        		int x = rmq[k - 1][i];
+        		int y = rmq[k - 1][i + (1 << k - 1)];
+        		rmq[k][i] = a[x] <= a[y] ? x : y;
+      		}
+    	}
+}
+
+int query(int l,int r)
+{
+	int k = logTable[r - l];
+   	int x = rmq[k][l];
+    	int y = rmq[k][r - (1 << k) + 1];
+	return a[x] <= a[y] ? x : y;
+}
+
+
+
+
+
+----------
+// Suffix Array --
+//O(n*(logn)^2)
+#define MAXN 1000006
+#define MAXLG 25
+struct entry { int nr[2], p; };
+
+char A[MAXN];
+entry L[MAXN];
+int P[MAXLG][MAXN], Nlen, stp, S[MAXN];
+
+int cmp(struct entry a, struct entry b) 
+{
+	return a.nr[0] == b.nr[0] ? (a.nr[1] < b.nr[1] ? 1 : 0) : (a.nr[0] < b.nr[0] ? 1 : 0);
+}
+
+int lcp(int x, int y) 
+{
+	int k, ret = 0;
+	if(x < 0 || y < 0) return 0;
+	if(x == y) return Nlen - x;
+	for(k = stp - 1; k >= 0 && x < Nlen && y < Nlen; k--)
+		if(P[k][x] == P[k][y])
+			x += 1 << k, y += 1 << k, ret += 1 << k;
+	return ret;
+}
+
+void build()
+{
+	char mn = (char)256;
+	for(int i = 0; A[i]; i++) mn = min(mn, A[i]);
+	for(int i = 0; A[i]; i++) P[0][i] = A[i] - mn;
+	Nlen = strlen(A);
+	stp = 1;
+	for(int cnt = 1; (cnt >> 1) < Nlen; stp++, cnt <<= 1) 
+	{
+		for(int i = 0; i < Nlen; i++) 
+		{
+			L[i].nr[0] = P[stp - 1][i];
+			L[i].nr[1] = i + cnt < Nlen ? P[stp - 1][i + cnt] : -1;
+			L[i].p = i;
+		}
+		sort(L, L + Nlen, cmp);
+		for(int i = 0; i < Nlen; i++) 
+			P[stp][L[i].p] = (i>0 && L[i].nr[0]==L[i-1].nr[0] && L[i].nr[1]==L[i-1].nr[1])? P[stp][L[i-1].p] : i;
+	}
+	for(int i = 0; i < Nlen; i++) S[P[stp-1][i]] = i;
+	for(int i = 0; i < Nlen; i++) 
+		cout << S[i] << endl;
+}
+
+int main() 
+{
+	scanf("%s",A);
+	build();
+	
+	return 0;
+}
+
+
+
+
+
+----------
+// FFT -- 
+// https://www.hackerearth.com/problem/algorithm/game-of-sweets-icpc-10/description/
+// polynomial multiplication
+// O(nlogn)
+
+#define PI 3.14159265358979323846
+#define base complex<double>
+#define vb vector<base> 
+vb omega;
+int fft_n;
+void initFFT(int n)
+{
+	fft_n=n;
+	omega.resize(fft_n);
+	double angle=2*PI/n;
+	for(int i=0;i<n;i++)
+		omega[i]=base(cos(i*angle),sin(i*angle));
+}
+void fft(vb &a)
+{
+	int n=a.size();
+	if(n==1)return;
+	int half=n>>1;
+	vb even(half),odd(half);
+
+	for(int i=0,j=0;i<n;i+=2,++j)
+	{
+		even[j]=a[i]; odd[j]=a[i+1];
+	}
+	fft(even);fft(odd);
+
+	base tmp;
+	for (int i=0, fact = fft_n/n; i < half; i++)
+	{
+		tmp =  odd[i] * omega[i * fact] ;
+		a[i] =  even[i] + tmp;
+		a[i+half] = even[i] - tmp;
+	}
+}
+void multiply(const vector<long long> & a, const vector<long long> & b, vector<long long> & res)
+{
+	vb fa (a.begin(), a.end()),  fb (b.begin(), b.end());
+	int n = 1;
+	while (n < 2*max (a.size(), b.size()))  n <<= 1;
+	fa.resize (n),  fb.resize (n);
+	initFFT(n);
+	fft (fa),  fft (fb);
+	for (size_t i=0; i<n; ++i)
+		fa[i] = conj( fa[i] * fb[i]);
+	fft (fa);
+	res.resize (n);
+	for (size_t i=0; i<n; ++i)
+		res[i] = (long long) (fa[i].real() / n + 0.5);
+}
+
+
+
+
+
+----------
+// Fast I/O --
+https://www.codechef.com/viewsolution/6894681
+
+
+
+
+
+----------
+// Graph Algo --
+http://codeforces.com/blog/entry/16221
+
+
+
+
+
+----------
+0-1 BFS
+http://codeforces.com/blog/entry/22276
+
+
+
+
+
+----------
+// Prim's and Kruskal MST --
+https://www.hackerearth.com/notes/minimum-spanning-tree/
+
+
+
+
+
+----------
+// LCA --
+https://www.quora.com/Algorithms/What-are-the-specifics-in-implementing-an-O-N-log-N-Lowest-Common-Ancestor-algorithm
+http://codeforces.com/blog/entry/22325
+
+
+
+
+
+----------
+// SCC kosaraju's algorithm -- 
+https://kartikkukreja.wordpress.com/2013/05/14/strongly-connected-components-in-a-directed-graph-c-implementation/
+
+
+
+
+
+----------
+// BIT / Fenwick Tree --
+// 1-indexed
+https://kartikkukreja.wordpress.com/2013/12/02/range-updates-with-bit-fenwick-tree/
+
+
+
+
+
+----------
+// Segment Tree --
+https://www.hackerearth.com/notes/segment-tree-and-lazy-propagation/
+https://www.hackerearth.com/problem/algorithm/spartans-leonidas-vs-xerxes-monk/editorial/
+http://se7so.blogspot.in/2012/12/segment-trees-and-lazy-propagation.html
+kundu - https://s3.amazonaws.com/codechef_shared/download/Solutions/JAN15/Setter/QSET.cpp
+
+
+
+
+
+----------
+// Square Root Decomposition --
+http://codeforces.com/contest/551/submission/11625603
+// Q.)  Givern array a, 
+	f(y) represents maximum value of j - i, such that aj = ai = y.
+	// queries
+	ty1 - increase value of all elements by x in range (l,r)
+	ty2 - calculate f(y)
+
+
+
+
+
+----------
+// Mo's algo --
+http://blog.anudeep2011.com/mos-algorithm/
+http://codeforces.com/contest/570/submission/12538137
+http://codeforces.com/contest/86/submission/11624203
+
+
+
+
+
+----------
+// Graph queries...sqrt decomposition technique -- 
+https://www.codechef.com/PROCON15/problems/PRCNSR3
+https://www.codechef.com/viewsolution/7673066
+
+
+
+
+
+----------
+// Z algorithm --
+http://codeforces.com/blog/entry/3107
+
+
+
+
+
+----------
+// Suffix array --
+http://discuss.codechef.com/questions/18105/mou1h-editorial
+https://www.codechef.com/viewsolution/5100735
+
+
+
+
+
+----------
+// Recurence Matrix --
+http://zobayer.blogspot.in/2010/11/matrix-exponentiation.html
+https://comeoncodeon.wordpress.com/2011/05/08/recurrence-relation-and-matrix-exponentiation/
+
+
+
+
+
+----------
+// dp in general --
+memoization technique, recursive solutions
+	https://www.quora.com/Are-there-any-good-resources-or-tutorials-for-dynamic-programming-besides-the-TopCoder-tutorial
+recursive to iterative
+	https://www.quora.com/How-do-I-figure-out-how-to-iterate-over-the-parameters-and-write-bottom-up-solutions-to-dynamic-programming-related-problems
+
+
+
+
+
+----------
+// dp in grids --
+https://www.hackerearth.com/notes/dynamic-programming-problems-involving-grids/
+
+
+
+
+
+----------
+// dp on integers --
+http://codeforces.com/blog/entry/10961
+http://stackoverflow.com/questions/22394257/how-to-count-integers-between-large-a-and-b-with-a-certain-property/22394258#22394258
+https://www.hackerrank.com/contests/round-2-holiday-cup/challenges/uncommon-number-set
+spoj369
+
+
+
+
+
+----------
+// dp on trees, subsets --
+https://www.hackerearth.com/notes/codemonk-dynamic-programming-ii-1/
+subsets/graphs - http://codeforces.com/blog/entry/337
+trees - https://threads-iiith.quora.com/Dynamic-Programming-on-Trees-Tutorial
+
+
+
+
+
+
+----------
+Grundy Numbers --
+http://letuskode.blogspot.in/2014/08/grundy-numbers.html
+// player wins if it is a last move
+
+	Grundy(s) = min({0, 1, …} - {Gundy(s1), Grundy(s2) … Grundy(sk)})
+
+
+
+
+
+----------
+// Kadane's algorithm --
+// Maximum_subarray_problem
+https://en.wikipedia.org/wiki/Maximum_subarray_problem
+
+
+
+
+
+----------
+// knapsack problem : bounded to 0/1 --
+http://dhruvbird.blogspot.in/2011/09/integer-01-bounded-knapsack-problem.html
+// n types of items, knapsack can hold a weight at most W, M maximum number of items of one particular type
+// Suppose we have 21 instance of the ith item type, weighing wi and costing ci. We observe that 21 can be rewritten (using powers of 2) as:
+	21 = 1 + 2 + 4 + 8 + 6
+// O(W*n*log(M))  
+
+
+
+
+
+----------
+// LIS --
+// https://en.wikipedia.org/wiki/Longest_increasing_subsequence#Efficient_algorithms
+// O(nlogn) LIS using binary search
+int STRICT = 1;
+int LIS(vector<int> v)
+{
+	// if input is array: int inp[], int n then 
+	// vector<int> v(inp, inp + n) 
+
+	vector< pair<int,int> > aux;
+	vector<int> par(v.size(), -1);
+
+	for(int i=0;i<v.size();i++)
+	{
+		pair<int,int> curr;
+		LET(it,aux);
+		
+		if(STRICT == 1)
+		{
+			curr = MP(v[i],0);
+			it = lower_bound(aux.begin(),aux.end(),curr);
+			curr.S = i;
+		}
+		else
+		{
+			curr = MP(v[i],i);
+			it = upper_bound(aux.begin(),aux.end(),curr);
+		}
+		
+		if(it == aux.end())
+		{
+			if(aux.size() == 0) par[i] = -1;
+			else par[i] = aux.back().S;
+			aux.PB(curr);
+		}
+		else
+		{
+			// replace
+			*it = curr;
+			if(it == aux.begin()) par[i] = -1;
+			else
+			{
+				it--;
+				par[i] = it->S;	
+			}
+		}
+	}
+	
+	//for(int i=0;i<par.size();i++) cout << par[i] << " ";
+	//cout << endl;
+
+	/*
+	// LIS ending at postion k
+	int k = 3,k_len;
+	vector<int> tmp;
+	for(int i=k;i>=0;i=par[i])
+		tmp.PB(v[i]);
+	reverse(tmp.begin(),tmp.end());
+	k_len = SZ(tmp);
+	
+	for(int i=0;i<tmp.size();i++) cout << tmp[i] << " ";
+	cout << endl;
+	*/
+
+	vector<int> ret;
+	for(int i=aux.back().S; i>=0; i = par[i])
+		ret.PB(v[i]);
+	reverse(ret.begin(),ret.end());
+	int lis_len = SZ(ret);
+
+	//for(int i=0;i<ret.size();i++) cout << ret[i] << " ";
+	//cout << endl;
+
+	return lis_len;
+}
+
+// Given a permutation of length N which has elements [1...N] find the number of operations required to sort it.
+// In each operation you can remove an element and insert it anywhere else in the permutation.
+// ans = N - LIS(inp);
+
+
+// Given Array of N integers, find the minimum operations required to sort it; ai <= 1e6.
+// here permutation of lenght n.
+// In each operation you can remove an element and insert it either to the begining or to the end.
+	for(int i=0;i<n;i++)
+                dp[a[i]] = dp[a[i]-1] + 1;
+        int ma = 1;
+        for(int i=0;i<n;i++)
+                ma = max(ma,dp[i]);
+        int ans = n - ma;
+
+
+
+
+
+----------
+// Ad-hoc --
+
+
+
+
+
+----------
+Q.) Given a number n, find out how many numbers have digit 2(or d) in the range 0…n
+http://stackoverflow.com/questions/11156876/given-a-number-n-find-out-how-many-numbers-have-digit-2-in-the-range-0-n
+
+
+
+
+
+----------
+// dp --
+// https://www.hackerrank.com/contests/worldcup/challenges/aliens/editorial
+
+Given matrix, '#' denotes filled '.' empty.
+
+1.)
+Let's calculate for each cell(i,j) maximum size of triangle like that, where (i,j) is right-down corner. this will be simple DP.
+for each (i,j):
+	if (cell(i,j) is pressed) 
+    		dp[i][j] = min (dp[i-1][j], dp[i][j-1]) + 1
+	else
+    		dp[i][j] = 0
+
+2.) 
+Now given matrix, can it be filled with 'k' size isosceles right triangles. Overlapping is allowed.
+So for each corner, if K ≤ dp[i][j] then we have to fill cells in this triangle as cells, that really can be pressed by allien.
+Another Dp solution : write in each dp2[i][j] triangle size we are going to fix.
+
+for each (i,j): 
+    	if (K <= dp[i][j])
+        	dp2[i][j] = K
+    	else
+        	dp2[i][j] = 0
+
+for each cell if it's right or down neibour cell has to fix triangle with size W, that means this cell has to fix triangle with size W-1.
+for each (i,j) in descending order:
+	dp2[i][j]= max( dp2[i][j], dp2[i][j+1]-1, dp2[i+1][j]-1 )
+
+if dp[i][j]>0 that means this cell is fixed, otherwise doesn't.
+
+After all of this fillings, if we have left cell which is pressed and not filleed then ...
+
+
+
+
+
+----------
+// inversions --
+Q.) Number of n-element permutations with exactly k inversions
+http://stackoverflow.com/questions/19372991/number-of-n-element-permutations-with-exactly-k-inversions
+-- https://www.hackerrank.com/contests/hourrank-4/challenges/new-year-chaos
+
+
+
+
+
+----------
+// sum-of-digits-of-a-factorial --
+http://stackoverflow.com/questions/1469529/sum-of-digits-of-a-factorial
+
+
+
+
+
+----------
+// combinatorics-dominoes tiling bitmask problem -- 
+http://math.stackexchange.com/questions/664113/count-the-ways-to-fill-a-4-times-n-board-with-dominoes
+
+
+
+
+
+----------
+// bignum --
+// http://codeforces.com/blog/entry/22566
+// https://github.com/indy256/codelibrary/blob/master/cpp/bigint.cpp
+// https://gist.github.com/ar-pa/957297fb3f88996ead11
+#define int64 long long
+const int bignumlen=2200; 
+const int Blen=8;  
+const int64 base=100000000;
+struct bignum{
+	int len;
+	int64 data[bignumlen];
+	int64 &operator [](int x){ return(data[x]);}
+	const int64 &operator [](int x)const { return(data[x]);}
+	bignum (){
+		memset(data,0,sizeof(data));
+		len=0;
+	}
+	void clear(){
+		for(int i=len;i>=1;--i)data[i]=0;
+		len=0;
+	}
+	int check (const bignum &a,const bignum &b){
+		if(a.len>b.len)return(0);
+		if(b.len>a.len)return(1);
+		for(int i=a.len;i>=1;--i){
+			if(a.data[i]<b.data[i])return(1);
+			if(b.data[i]<a.data[i])return(0);
+		}
+		return 2;
+	}
+	bool operator < (const bignum &b){ return(check(*this,b)==1);}
+	bool operator > (const bignum &b){ return(check(*this,b)==0);}
+	bool operator <=(const bignum &b){ return(check(*this,b)>=1);}
+	bool operator >=(const bignum &b){ return(check(*this,b)%2==0);}
+	bool operator !=(const bignum &b){ return(check(*this,b)!=2);}
+	bool operator ==(const bignum &b){ return(check(*this,b)==2);}
+	
+	bignum operator=(const bignum &x){
+		for(int i=x.len+1;i<=len;++i)data[i]=0;
+		for(int i=1;i<=x.len;++i)data[i]=x.data[i];
+		len=x.len;
+		return *this;
+	}
+	bignum operator=(int64 x){
+		for(int i=len;i>=0;--i)data[i]=0;
+		len=0;
+		while(x){
+			data[++len]=x%base;
+			x/=base;
+		}
+		return *this;
+	}
+	bignum(int64 x){
+		memset(data,0,sizeof(data));
+		len=0;
+		(*this)=x;
+	}
+	bignum operator *(const bignum &b){
+		int i,j;
+		bignum tmp;
+		for(i=1;i<=len;++i)if(data[i]!=0)
+			for(j=1;j<=b.len;++j)if(b.data[j]!=0){
+				tmp.data[i+j-1]+=data[i]*b.data[j];
+				tmp.data[i+j]+=tmp.data[i+j-1]/base;
+				tmp.data[i+j-1]%=base;
+			}
+		tmp.len=len+b.len-1;
+		while(tmp.data[tmp.len+1])tmp.len++;
+		return tmp;
+	}
+	bignum operator *(int64 x){
+		int i;
+		bignum tmp;
+		for(i=1;i<=len;++i)tmp[i]=data[i]*x;
+		tmp.len=len;
+		for(i=1;i<=len;++i){
+			tmp[i+1]+=tmp[i]/base,tmp[i]%=base;
+			if(tmp[i+1]&&i+1>tmp.len)tmp.len++;
+		}
+		return tmp;
+	}
+	bignum operator /(int64 x){
+		int i;
+		bignum tmp;
+		int64 y=0;
+		for(i=len;i>=1;--i){
+			y=y*base+data[i];
+			tmp[i]=y/x;
+			y%=x;
+		}
+		tmp.len=len;
+		while(tmp[tmp.len]==0&&tmp.len>1)tmp.len--;
+		return tmp;
+	}
+	bignum operator /(const bignum &b){
+		if(b.len<=1 && b[1]==0){
+			printf("error! 被0除!");
+			for(;;);
+		}
+		int i,l1=(len-1)*Blen,l2=(b.len-1)*Blen;
+		int64 x=data[len],y=b[b.len];
+		while(x)x/=10,l1++;
+		while(y)y/=10,l2++;
+		bignum tmp,chu,B;
+		chu=*this; B=b;
+		
+		for(i=1;i*Blen<=l1-l2;++i)B*=base;
+		for(i=1;i<=(l1-l2)%Blen;++i)B*=10;
+		for(i=l1-l2;i>=0;--i){
+			x=0;
+			while(chu>=B)chu-=B,x++;
+			tmp[i/Blen+1]=tmp[i/Blen+1]*10+x;
+			B/=10;
+		}
+		tmp.len=(l1-l2)/Blen+1;
+		while(tmp.len>=1 && !tmp[tmp.len])tmp.len--;
+		return tmp;
+	}
+	bignum operator +(const bignum &b){
+		bignum tmp;
+		int i,l=max(len,b.len);
+		for(i=1;i<=l;++i)tmp[i]=data[i]+b[i];
+		for(i=1;i<=l;++i)tmp[i+1]+=tmp[i]/base,tmp[i]%=base;
+		tmp.len=l;
+		if(tmp[tmp.len+1])tmp.len++;
+		return tmp;
+	}
+	bignum operator +(int64 x){
+		bignum tmp; tmp=*this;
+		tmp[1]+=x;
+		for(int i=1;i<=len&&tmp[i]>=base;++i)tmp[i+1]+=tmp[i]/base,tmp[i]%=base;
+		while(tmp[tmp.len+1])tmp.len++;
+		return tmp;
+	}
+	bignum operator -(const bignum &b){
+		int i;
+		bignum tmp;
+		for(i=1;i<=len;++i)tmp.data[i]=data[i]-b.data[i];
+		for(i=1;i<=len;++i){
+			if(tmp[i]<0)tmp.data[i]+=base,tmp.data[i+1]--;
+		}
+		tmp.len=len;
+		while(tmp[tmp.len]==0&&tmp.len>1)tmp.len--;
+		return tmp;
+	}
+	bignum operator -(int64 x){
+		bignum tmp; tmp=*this;
+		tmp[1]-=x;
+		for(int i=1;i<=len&&tmp[i]<0;++i){
+			tmp[i+1]+=(tmp[i]+1)/base-1;
+			tmp[i]=(tmp[i]+1)%base+base-1;
+		}
+		while(!tmp[tmp.len]&&tmp.len>1)tmp.len--;
+		return tmp;
+	}
+	int64 operator %(int64 x){
+		int i;
+		int64 y=0;
+		for(i=len;i>=1;--i)y=(y*base+data[i])%x;
+		return y;
+	}
+	bignum operator %(const bignum &b){
+		if(b.len<=1 && b[1]==0){
+			printf("error! 被0 mod!");
+			for(;;);
+		}
+		int i,l1=(len-1)*Blen,l2=(b.len-1)*Blen;
+		int64 x=data[len],y=b[b.len];
+		while(x)x/=10,l1++;
+		while(y)y/=10,l2++;
+		bignum chu,B;
+		chu=*this; B=b;
+		
+		for(i=1;i*Blen<=l1-l2;++i)B*=base;
+		for(i=1;i<=(l1-l2)%Blen;++i)B*=10;
+		for(i=l1-l2;i>=0;--i){
+			while(chu>=B)chu-=B;
+			B/=10;
+		}
+		return chu;
+	}
+	
+	bignum operator +=(const bignum &b){return *this=(*this+b);}
+	bignum operator *=(const bignum &b){return *this=(*this*b);}
+	bignum operator -=(const bignum &b){return *this=(*this -b);}
+	bignum operator /=(const bignum &b){return *this=(*this/b);}
+	bignum operator %=(const bignum &b){return *this=(*this%b);}
+	bignum operator *=(int64 x) {return( *this=(*this *x));}
+	bignum operator +=(int64 x) {return( *this=(*this +x));}
+	bignum operator -=(int64 x) {return( *this=(*this -x));}
+	bignum operator /=(int64 x) {return( *this=(*this /x));}
+	void read(){
+		char c[bignumlen*Blen+10];
+		scanf("%s",c+1);
+		int l=strlen(c+1);
+		(*this).clear();
+		int64 x;
+		for(int i=1;i<=(l-1)/Blen+1;++i){
+			x=0;
+			for(int j=l-Blen*i+1;j<=l-Blen*i+Blen;++j)if(j>=1)x=x*10+c[j]-48;
+			data[++len]=x;
+		}
+	}
+	void write(){
+		//printf("%I64d",data[len]);
+		//for(int i=len-1;i>=1;--i)printf("%0*I64d",Blen,data[i]);
+		printf("%lld",data[len]);
+		for(int i=len-1;i>=1;--i)printf("%0*lld",Blen,data[i]);
+		printf("\n");
+	}
+};
+bignum gcd(const bignum &A,const bignum &B){
+	bignum a=A,b=B,res=1;
+	while(!(a[1]&1)  && !(b[1]&1))a/=2,b/=2,res*=2;
+	for(;;){
+		if(a.len==1 && a[1]==0)return b*res;
+		if(b.len==1 && b[1]==0)return a*res;
+		while(!(a[1]&1))a/=2;
+		while(!(b[1]&1))b/=2;
+		if(a>b)a-=b;
+		else b-=a;
+	}
+}
+
+int main()
+{
+	struct bignum a;
+	a.read();
+	a.write();
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

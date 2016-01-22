@@ -1,5 +1,7 @@
 package codeforces;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Educational5_B {
@@ -12,6 +14,8 @@ public class Educational5_B {
 		for(int i=1;i<=n;i++) {
 			arr[i]=Integer.MAX_VALUE;
 		}
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("a", "b");
 		int min = 0;
 		for(int i=1;i<=n;i++) {
 			for(int j=1;j<=m;j++) {
