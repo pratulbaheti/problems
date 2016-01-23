@@ -6,7 +6,7 @@ public class BinaryIndexedTree {
 	static int[] arr;
 	public static void main(String[] args) {
 		arr = new int[]{10,1,3,2,3,4,5,6,7,8,9};
-		bit = new int[max()+1];
+		bit = new int[50000+1];
 		
 		totalInversion();
 	}
