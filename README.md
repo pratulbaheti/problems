@@ -3,9 +3,9 @@
 #### Background
 Every customer is eligible for certain features which are used by DDC to decide customer's functionality.  
 Features can be at:
--Control plane level: Feature in this category applies to all the customer in control plane eg SICP1, Production.
--Edition level: Feature in this category applies to all the customer having same licensing eg Platinum, AzureVDI etc.
--Customer level: Featues in this level are specific to customer.  
+- Control plane level: Feature in this category applies to all the customer in control plane eg SICP1, Production.
+- Edition level: Feature in this category applies to all the customer having same licensing eg Platinum, AzureVDI etc.
+- Customer level: Featues in this level are specific to customer.  
 
 All customers are eligible for control plane level features. Edition level features are related to the licensing of the customer. The effective features for customer is merged set of all these features where customer level features take priority over edition level which inturn takes priority over control plane features.  
 Each features can have different settings or values which decides characteristics of customer. Settings are case sensitive and values must be string eg {Enabled : "True/False"}.
