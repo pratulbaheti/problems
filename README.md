@@ -7,10 +7,12 @@ Each features have certain settings, one of setting {Enabled : "True/False"} set
 #### Functionality
 Obelisk has mechanism to Enable, Disable or apply default setting for customers. For eg, a feature name "GoogleAnalytics" is enabled at control plane level implies it is eligible for all the customers on that control plane level. If customer has "AzureVDI" licensing and corresponds to "AzureVDI" edition, which inturn has "Enabled: 'False" the effective setting will be false.  
 Search for the customer and open its description page. Follow steps as shown in image.
-![Fig 1. All features for customer](./customer_desc.png)
+![Fig 1. Customer Page](./customer_desc.png)
 
 To check all the eligible features, please follow steps 1 and 2 as shown in image:
 ![Fig 1. All features for customer](./feature_toggle.png)
+
+To change the values, use step 1 in above image
 
 #### Usage
 - Values in the dropdown are possible values for the corresponding feature. 
