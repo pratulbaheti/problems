@@ -24,3 +24,46 @@ To change the values, use step 1 in above image
 - Values in the dropdown are possible values for the corresponding feature. 
 - Choosing Enable/Disable will create or modify settings at customer level which will override lower level settings. 
 - Selecting "Default" value will remove the entries from the customer level features and default values which are either at control or edition level will be applied on customer.
+
+
+#### Details required for a new feature.
+- To create a new feature, raise ticket by mailing XD-Cloud-DevOps-Support@citrix.com
+- Provide details for properties as featureId, feature colloquial name which appears on Obelisk, Enabled (True if feature is On and false if Off), additional property_keys and corresponding property_values.
+- To add canary settings, provide new details same as above. After feature is rolled out completely these values will replace the default values of the feature.
+- The new feature will be reflected on Obelisk in less than 1 minute and generally 30 seconds on DDC. No restart or reboot is required.
+
+#### Add new Feature (For DevOps Team)
+Features can be added at Control Plane level, Edition Level or Customer Level.
+
+| | Control Plane: Add New Feature in DataStore |  
+|----|:----|
+| **URL**     | /controlplanes/{control_plane_id}/features/{feature_id}
+| **Value**   | { 'Enabled' : "True"/"False", "__displayName" : "Feature Name",  "property_key1" : "property_value1" } 
+
+
+| | Control Plane: Add New Canary Settings in DataStore |  
+|----|:----|
+| **URL**     | /controlplanes/{control_plane_id}/features/{feature_id}/canary
+| **Value** | { 'stage' : 'testing', 'percentage' : 30, 'settings' = { 'Enabled' : "True"/"False", "__displayName" : "Feature Name",  "property_key1" : "property_value1" }} 
+
+
+| | Edition Plane: Add New Feature in DataStore |  
+|----|:----|
+| **URL**     | /controlplanes/{control_plane_id}/editions/{edition_id}/{feature_id}
+| **Value** | { 'Enabled' : "True"/"False", "__displayName" : "Feature Name",  "property_key1" : "property_value1" } 
+
+
+| | Edition Plane: Add New Canary Settings in DataStore |  
+|----|:----|
+| **URL**     | /controlplanes/{control_plane_id}/editions/{edition_id}/{feature_id}/canary |
+| **Value** | { 'stage' : 'testing', 'percentage' : 30, 'settings' = { 'Enabled' : "True"/"False", "__displayName" : "Feature Name",  "property_key1" : "property_value1" }} 
+
+
+| | Customer Level : Add New Feature in DataStore |  
+|----|:----|
+| **URL**     | /controlplanes/{control_plane_id}/customers/{customer_id}/features/{feature_id}
+| **Value** | { 'Enabled' : "True"/"False", "__displayName" : "Feature Name",  "property_key1" : "property_value1" } 
+
+
+_**Note**_: In Future, features can be added through scripts provided to devops. For canary settings, Obelisk will have a page to add and update canary settings.
+
