@@ -55,7 +55,7 @@ public class MandragoraForest {
 		}
 
 		public int nextInt() {
-			return Integer.parseInt(next());
+			return Integer.parseInt(next()); 
 		}
 
 		public String next() {
