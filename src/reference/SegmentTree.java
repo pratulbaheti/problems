@@ -10,7 +10,7 @@ public class SegmentTree {
 	public static void main(String[] args) {
 		int len = data.length;
 		int height = (int)Math.ceil(Math.log(len)/Math.log(2));
-		int size = 2 << (height);
+		int size = 2 << (height+1);
 		tree = new int[size];
 		mintree = new int[size];
 		lazy = new int[size];
