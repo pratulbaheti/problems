@@ -56,12 +56,7 @@ class Vertex implements Comparable<Vertex>  {
 	}
 	@Override
 	public int compareTo(Vertex v) {
-		if(this.weight < v.weight)
-			return -1;
-		else if(this.weight > v.weight)
-			return 1;
-		else
-			return 0;
+		return this.weight - v.weight;
 	}
 }
 

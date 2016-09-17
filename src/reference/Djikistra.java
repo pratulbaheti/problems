@@ -24,6 +24,8 @@ public class Djikistra {
   	  		   } else {
   	  			 v1 = new Vertex(a1);
   	    		 map.put(a1,v1);
+  	    		 if(a1==17)
+  	    			 v1.weight=0;
   	  			 pq.add(v1);
   	  		   }
   	  		   if(map.get(a2) != null) {
@@ -39,7 +41,9 @@ public class Djikistra {
   	  		   v2.nEdge.add(e2);
   		    }
   	  	   
-  	  	   map.get(1).weight=0;
+  	  	   int nextInt=in.nextInt();
+  	  	   map.get(nextInt).weight=0;
+  	  	   pq.add(pq.remove());
   	  	   while(true) {
   	  		 if(pq.isEmpty()) break;
   	  		 Vertex current = pq.remove();
@@ -54,7 +58,11 @@ public class Djikistra {
   	  		 Vertex temp = pq.remove();
   	  		 pq.add(temp);
   	  	   }
+  	  	   for(int z=1;z<=20;z++) {
+  	  		   System.out.print(""+map.get(z).weight +" ");
+  	  	   }
   	  	   System.out.println();
+  	  	   in.close();
   		}
   	}
 }
